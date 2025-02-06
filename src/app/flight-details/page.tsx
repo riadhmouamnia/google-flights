@@ -3,11 +3,11 @@ import FlightDetails from "@/components/flight-details";
 export default async function FlightDetailsPage({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     legs: string;
     itineraryId: string;
     sessionId: string;
-  };
+  }>;
 }) {
   const { legs, itineraryId, sessionId } = await searchParams;
 
