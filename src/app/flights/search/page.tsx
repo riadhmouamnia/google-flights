@@ -1,10 +1,11 @@
 import getConfig from "@/actions/get-config";
 import getFlights from "@/actions/get-flights";
+import FlightsList from "@/components/flights-list";
 
 export default async function Search({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     originCountry: string;
     originSkyId: string;
     originEntityId: string;
@@ -12,7 +13,7 @@ export default async function Search({
     destinationEntityId: string;
     departure: string;
     adults: string;
-  };
+  }>;
 }) {
   const {
     originCountry,
@@ -42,10 +43,5 @@ export default async function Search({
     market,
     countryCode,
   });
-  return (
-    <div>
-      <h1>Search</h1>
-      <p>{JSON.stringify(flights)}</p>
-    </div>
-  );
+  return <FlightsList flights={flights as FlightsResponse["data"]} />;
 }

@@ -44,7 +44,7 @@ export function SearchForm() {
   };
 
   return (
-    <form className="space-y-6 p-6 bg-primary-foreground rounded-xl shadow-sm max-w-4xl mx-auto">
+    <form className="space-y-6 p-6 bg-primary-foreground dark:border-2 rounded-xl shadow-sm max-w-4xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="origin">From</Label>
