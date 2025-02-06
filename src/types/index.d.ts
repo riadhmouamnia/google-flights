@@ -198,3 +198,91 @@ type StopPrice = {
   isPresent: boolean;
   formattedPrice?: string;
 };
+
+type FlightDetailsCarrier = {
+  id: string;
+  name: string;
+  displayCode: string;
+  displayCodeType: string;
+  logo: string;
+  altId: string;
+};
+
+type Segment = {
+  id: string;
+  origin: Airport;
+  destination: Airport;
+  duration: number;
+  dayChange: number;
+  flightNumber: string;
+  departure: string;
+  arrival: string;
+  marketingCarrier: FlightDetailsCarrier;
+  operatingCarrier: FlightDetailsCarrier;
+};
+
+type Leg = {
+  id: string;
+  origin: Airport;
+  destination: Airport;
+  segments: Segment[];
+  duration: number;
+  stopCount: number;
+  departure: string;
+  arrival: string;
+  dayChange: number;
+};
+
+type Rating = {
+  value: number;
+  count: number;
+};
+
+type Agent = {
+  id: string;
+  name: string;
+  isCarrier: boolean;
+  bookingProposition: string;
+  url: string;
+  price: number;
+  rating: Rating;
+  updateStatus: string;
+  segments: Segment[];
+  isDirectDBookUrl: boolean;
+  quoteAge: number;
+};
+
+type PricingOption = {
+  agents: Agent[];
+  totalPrice: number;
+};
+
+type SafetyAttributes = {
+  carrierID: string;
+  carrierName: string;
+  faceMasksCompulsory: boolean | null;
+  aircraftDeepCleanedDaily: boolean | null;
+  attendantsWearPPE: boolean | null;
+  cleaningPacksProvided: boolean | null;
+  foodServiceChanges: boolean | null;
+  safetyUrl: string | null;
+};
+
+type FlightDetailsItinerary = {
+  legs: Leg[];
+  pricingOptions: PricingOption[];
+  isTransferRequired: boolean;
+  destinationImage: string;
+  operatingCarrierSafetyAttributes: SafetyAttributes[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  flexibleTicketPolicies: any[];
+};
+
+type FlightDetailsResponse = {
+  status: boolean;
+  timestamp: number;
+  data: {
+    itinerary: FlightDetailsItinerary;
+    pollingCompleted: boolean;
+  };
+};

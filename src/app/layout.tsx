@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/toggle-theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SearchForm } from "@/components/search-form";
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const queryClient = new QueryClient();
+  const pathname = usePathname();
+  const isFlightDetailsRoute = pathname?.includes("/flight-details");
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -34,18 +38,24 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="min-h-screen w-full py-12 px-4 sm:px-6 lg:px-8">
-              <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-12">
-                  <h1 className="text-4xl font-bold mb-4">Find Your Flight</h1>
-                  <p className="text-lg text-primary/40">
-                    Search hundreds of travel sites at once
-                  </p>
+            {!isFlightDetailsRoute ? (
+              <div className="min-h-screen w-full py-12 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                  <div className="text-center mb-12">
+                    <h1 className="text-4xl font-bold mb-4">
+                      Find Your Flight
+                    </h1>
+                    <p className="text-lg text-primary/40">
+                      Search hundreds of travel sites at once
+                    </p>
+                  </div>
+                  <SearchForm />
+                  {children}
                 </div>
-                <SearchForm />
-                {children}
               </div>
-            </div>
+            ) : (
+              <>{children}</>
+            )}
             <div className="fixed bottom-4 right-4 z-50">
               <ModeToggle />
             </div>

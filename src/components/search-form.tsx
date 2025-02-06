@@ -13,19 +13,15 @@ import { format } from "date-fns";
 import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import AirportCombobox from "./airport-combobox";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export function SearchForm() {
   const [origin, setOrigin] = useState<AirportDetails | null>(null);
   const [destination, setDestination] = useState<AirportDetails | null>(null);
   const [departure, setDeparture] = useState<Date>();
   const [adults, setAdults] = useState(1);
-  const pathname = usePathname();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const isFlightDetailsRoute = pathname?.includes("/flight-details");
-
-  if (isFlightDetailsRoute) return null;
 
   const handleSearch = () => {
     const queryParams = new URLSearchParams({
