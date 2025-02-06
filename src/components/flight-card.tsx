@@ -144,7 +144,7 @@ export function FlightCard({
               <Button asChild variant="secondary">
                 <Link
                   href={{
-                    pathname: "/flights/flight-details",
+                    pathname: "/flight-details",
                     query: {
                       legs,
                       itineraryId,

@@ -39,7 +39,7 @@ export function SearchForm() {
     }).toString();
 
     startTransition(() => {
-      router.push(`/flights/search?${queryParams}`);
+      router.push(`/search?${queryParams}`);
     });
   };
 
