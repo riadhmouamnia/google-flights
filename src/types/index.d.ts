@@ -1,4 +1,5 @@
 interface AirportResponse {
+  message?: string;
   status: boolean;
   timestamp: number;
   data: AirportData[] | [];
@@ -49,6 +50,7 @@ type Config = {
 };
 
 type FlightsResponse = {
+  message?: string;
   status: boolean;
   timestamp: number;
   sessionId: string;
@@ -279,6 +281,7 @@ type FlightDetailsItinerary = {
 };
 
 type FlightDetailsResponse = {
+  message?: string;
   status: boolean;
   timestamp: number;
   data: {

@@ -14,7 +14,7 @@ export default async function getFlightDetails({
   const options = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "a0689f32d1msh055a01a4b1b6181p16c8adjsnabf82ff06283",
+      "x-rapidapi-key": process.env.RAPIDAPI_KEY || "",
       "x-rapidapi-host": "sky-scrapper.p.rapidapi.com",
     },
   };
@@ -22,8 +22,12 @@ export default async function getFlightDetails({
   try {
     const response = await fetch(url, options);
     const result: FlightDetailsResponse = await response.json();
+    if (result.status === false) {
+      throw new Error(result.message);
+    }
     return result;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }

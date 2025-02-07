@@ -37,11 +37,18 @@ export default async function getFlights({
     };
     const response = await fetch(url, options);
     const result: FlightsResponse = await response.json();
-    if (!result?.data) return null;
+    if (result.message?.startsWith("You have exceeded")) {
+      throw new Error(
+        "You have exceeded the MONTHLY quota for Requests on your current plan, BASIC. Upgrade your plan at https://rapidapi.com/apiheya/api/sky-scrapper"
+      );
+    }
+    if (result.data.context.status === "failure") {
+      throw new Error("faild to fetch flights");
+    }
     const flights = result.data;
     return flights;
   } catch (error) {
     console.error("Error fetching flights:", error);
-    return [];
+    throw error;
   }
 }

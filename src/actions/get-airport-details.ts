@@ -16,6 +16,11 @@ export async function getAirportDetails(city: string) {
 
     const response = await fetch(url, options);
     const result: AirportResponse = await response.json();
+    if (result.message?.startsWith("You have exceeded")) {
+      throw new Error(
+        "You have exceeded the MONTHLY quota for Requests on your current plan, BASIC. Upgrade your plan at https://rapidapi.com/apiheya/api/sky-scrapper"
+      );
+    }
     if (!result?.data) return [];
 
     // Extract relevant details from response

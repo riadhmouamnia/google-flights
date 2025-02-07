@@ -43,5 +43,15 @@ export default async function Search({
     market,
     countryCode,
   });
-  return <FlightsList flights={flights as FlightsResponse["data"]} />;
+
+  if (flights?.context?.totalResults === 0) {
+    return (
+      <div className="p-4">
+        <p>No flights found</p>
+      </div>
+    );
+  }
+  if (flights?.context?.totalResults > 0) {
+    return <FlightsList flights={flights as FlightsResponse["data"]} />;
+  }
 }

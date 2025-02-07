@@ -17,7 +17,7 @@ export default async function FlightDetailsPage({
     sessionId,
   });
 
-  if (!flightDetails) {
+  if (!flightDetails?.data.itinerary.legs.length) {
     return <div>Flight not found</div>;
   }
 
